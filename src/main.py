@@ -23,6 +23,36 @@ from skeletal_dynamics import MultiPlanarSkeletalDynamics
 from radiotoxic_kinetics import RadiotoxicKineticsEngine
 from ai_diagnostic_app import AIDiagnosticSupportApp
 from univac_bridge import UnivacTaxonomyBridge
+# Append these tracking steps directly inside the main() block of your src/main.py file:
+
+from biomass_solver import NitrogenBiomassSolver
+
+# ... [Previous Database, PyCUDA Filtering, and Section 10/11 Math Complete] ...
+
+print("[INFO] Deploying Section 12 Nitrogen-Limiting Mass Threshold & Diffusion Solver...")
+biomass_engine = NitrogenBiomassSolver(filtered_volume, global_resolution_mm=(0.5, 0.5, 1.0))
+
+# Trace live nitrogen protein pools and track capsule containment limits
+simulated_volume_mm3 = 340.5
+active_nitrogen_percentage = 78.4
+target_strain_key = "Decolopoda"
+
+growth_analysis = biomass_engine.evaluate_nitrogen_limiting_growth(
+    current_volume_v=simulated_volume_mm3,
+    available_nitrogen_pool=active_nitrogen_percentage,
+    target_strain=target_strain_key
+)
+
+print(f"  [BIOMASS EVAL] Proliferation Rate (dV/dt) : {growth_analysis['biomass_growth_derivative_dv_dt']:.4f} mm³/cycle")
+print(f"  [BIOMASS EVAL] Containment Risk Tier    : {growth_analysis['containment_risk_status']}")
+print(f"  [BIOMASS EVAL] Critical Clearance Base  : pH >= {growth_analysis['required_degradation_ph']}")
+
+# Compute convective transport clearing maps over deep lymph node tracks
+simulated_clearing_velocity = 2.45
+lymph_cleared_matrix = biomass_engine.compute_lymphatic_sepsis_clearance_map(filtered_volume, simulated_clearing_velocity)
+
+print("[SUCCESS] Advanced somatic mass calculations integrated cleanly.")
+# Proceed directly straight into downstream ai_diagnostic_app.py reporting...
 
 def setup_runtime_directories() -> str:
     """
