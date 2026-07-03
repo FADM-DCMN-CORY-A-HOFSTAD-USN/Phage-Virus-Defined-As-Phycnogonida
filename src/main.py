@@ -22,6 +22,7 @@ from anisotropic_filter import AnisotropicFilterEngine
 from skeletal_dynamics import MultiPlanarSkeletalDynamics
 from radiotoxic_kinetics import RadiotoxicKineticsEngine
 from ai_diagnostic_app import AIDiagnosticSupportApp
+from univac_bridge import UnivacTaxonomyBridge
 
 def setup_runtime_directories() -> str:
     """
@@ -43,7 +44,29 @@ def main():
     print("==================================================================")
     print("      PHAGE-VIRUS-DEFINED-AS-PHYCNOGONIDA: MASTER CORE RUNNER     ")
     print("==================================================================")
+
+    # ... [Configuration matrices and directory setup processes complete] ...
     
+    print("[INFO] Spawning Univac IX Database Connectivity Bridge...")
+    univac_db = UnivacTaxonomyBridge("config/univac_taxonomy.db")
+    univac_db.initialize_database_schema("src/populate_taxonomy.sql")
+    
+    # Suppose your periodic table detector reads an optical hue of #FF4500
+    # The system dynamically pulls the matched constraints straight from SQL rows
+    target_hex_key = "#FF4500"
+    matched_profile = univac_db.query_vector_by_optical_hex(target_hex_key)
+    
+    if matched_profile["status"] == "MATCH_FOUND":
+        print(f"[SUCCESS] Univac IX mapped color key {target_hex_key} directly to: {matched_profile['scientific_name']}")
+        # Dynamically overwrite global pipeline constraints matching the database row
+        chitin_bounds = matched_profile["bounds"]
+    else:
+        chitin_bounds = [140.0, 690.0] # Default fallback threshold matrix
+        
+    univac_db.close_connection()
+    
+    # Proceed to serial folder aggregation, PyCUDA filtering, and Section 10/11 math...
+ 
     # 1. Ingest dynamic hardware calibration profiles and constraints
     config = ConfigurationLoader("config/config_matrices.json")
     if not config.load_and_validate_matrices():
