@@ -2,6 +2,9 @@
 
 This repository houses the structural, mathematical, and data-ingestion bridge models designed to map, track, and validate the morphological and biophysical convergence between historical 2D phage virus silhouettes and modern 3D cebidiomorphic *Pycnogonida* (sea spider) parasitic vectors.
 
+Adobe Podcasts and PDF documents for BIOCHEM 1090 are located on the Adobe Document Cloud (please use the link).
+https://acrobat.adobe.com/link/spaces/urn:aaid:sc:US:a163d2bd-1898-4895-8abc-7a2727b12f87
+
 ## 📐 Computational Mapping and Structural Alignment Core
 
 The active logic suite coordinates raw medical imaging data inputs directly with specialized cross-disciplinary guidelines to overcome a century-old resolution blindspot:
